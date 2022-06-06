@@ -53,20 +53,6 @@ const Game = () => {
         setCurrGuessWord(null);
     }
 
-    // const handleInputChanged = (event) => {
-    //     const newGuessWord = event.target.value;
-    //     const newRows = [...rows];
-    //     const newRow = [...rows[currGuess]]
-    //     for (let i = 0; i < wordLength; i++) {
-    //         newRow[i] = {
-    //             value: newGuessWord.charAt(i),
-    //         };
-    //     }
-    //     newRows[currGuess] = newRow;
-    //     setCurrGuessWord(newGuessWord);
-    //     setRows(newRows);
-    // }
-
     const onKeyboardClick = (letter) => {
         if (currGuessWord && currGuessWord.length >= wordLength) {
             return; 
@@ -123,7 +109,6 @@ const Game = () => {
             <h1>Wordle!</h1>
             {wordBoxes}
             <Keyboard onClick={onKeyboardClick} guessedLetters={guessedLetters}/>
-            {/* <input type='text' onChange={handleInputChanged} maxLength={wordLength}></input> */}
             <button onClick={confirmGuess}>Guess</button>
             <button onClick={onDelete}>Delete</button>
         </div>
