@@ -25,6 +25,7 @@ const Game = () => {
         const newGuessedLetters = [...guessedLetters];
         for (let i = 0; i < wordLength; i++) {
             let color = null;
+            console.log(newRow[i]);
             if (newRow[i].value === word.charAt(i)) {
                 color = 'green';
             } else if (word.includes(newRow[i].value)) {
@@ -42,7 +43,7 @@ const Game = () => {
         setRows(newRows);
         setGuessedLetters(newGuessedLetters);
 
-        if (currGuessWord === word || currGuess === numGuesses - 1) {
+        if (currGuessWord.toUpperCase() === word || currGuess === numGuesses - 1) {
             setGameOver(true);
             return;
         }
@@ -66,12 +67,16 @@ const Game = () => {
     // }
 
     const onKeyboardClick = (letter) => {
+        if (currGuessWord && currGuessWord.length >= wordLength) {
+            return; 
+        }
+
         const newGuessWord = currGuessWord ? currGuessWord + letter : letter;
         const newRows = [...rows];
         const newRow = [...rows[currGuess]]
         for (let i = 0; i < wordLength; i++) {
             newRow[i] = {
-                value: newGuessWord.charAt(i),
+                value: newGuessWord.charAt(i).toUpperCase(),
             };
         }
         newRows[currGuess] = newRow;
@@ -85,13 +90,14 @@ const Game = () => {
         setCurrGuessWord(null);
         setWord(getWord(wordLength));
         setGameOver(false);
+        setGuessedLetters([]);
     }
 
     const getNextId = getIdGenerator();
     const wordBoxes = [...rows].map(e => <WordBoxRow key={getNextId()} letters={e}/>);
 
     if (gameOver) {
-        const message = currGuessWord === word ? 'Correct!' : 'Game over.';
+        const message = currGuessWord.toUpperCase() === word ? 'Correct!' : 'Game over.';
         return (
             <div>
                 <h1>{message} The word was {word.toUpperCase()}</h1>
