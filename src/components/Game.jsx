@@ -5,12 +5,13 @@ import {getIdGenerator, getWord} from './utils.js';
 
 const wordLength = 5;
 const numGuesses = 6;
+const initWord = getWord(wordLength);
 
 const Game = () => { 
     const [rows, setRows] = useState(Array(numGuesses).fill(Array(wordLength).fill({value: null, color: 'null'})));
     const [currGuess, setCurrGuess] = useState(0);
     const [currGuessWord, setCurrGuessWord] = useState(null);
-    const [word, setWord] = useState(getWord(wordLength));
+    const [word, setWord] = useState(initWord);
     const [guessedLetters, setGuessedLetters] = useState([]);
     const [gameOver, setGameOver] = useState(false);
 
