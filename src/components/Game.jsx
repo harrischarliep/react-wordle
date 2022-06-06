@@ -72,15 +72,26 @@ const Game = () => {
         }
 
         const newGuessWord = currGuessWord ? currGuessWord + letter : letter;
+        setCurrGuessWord(newGuessWord);
+
+        updateRows(newGuessWord);
+    }
+
+    const onDelete = () => {
+        const newGuessWord = currGuessWord ? currGuessWord.slice(0, -1) : null;
+        setCurrGuessWord(newGuessWord);
+        updateRows(newGuessWord);
+    }
+
+    const updateRows = (guessWord) => {
         const newRows = [...rows];
         const newRow = [...rows[currGuess]]
         for (let i = 0; i < wordLength; i++) {
             newRow[i] = {
-                value: newGuessWord.charAt(i).toUpperCase(),
+                value: guessWord.charAt(i).toUpperCase(),
             };
         }
         newRows[currGuess] = newRow;
-        setCurrGuessWord(newGuessWord);
         setRows(newRows);
     }
 
@@ -113,6 +124,7 @@ const Game = () => {
             <Keyboard onClick={onKeyboardClick} guessedLetters={guessedLetters}/>
             {/* <input type='text' onChange={handleInputChanged} maxLength={wordLength}></input> */}
             <button onClick={confirmGuess}>Guess</button>
+            <button onClick={onDelete}>Delete</button>
         </div>
     );
 }
