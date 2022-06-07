@@ -41,9 +41,9 @@ export function getWord(wordLength) {
             }
         } else {
             fetchWords();
-            shuffleArray(wordList);
         }
     }
+    shuffleArray(wordList);
 
     const word = wordList.pop();
     console.log("new word is: " + word);
